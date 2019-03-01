@@ -25,8 +25,10 @@ class PoWBlock(Block):
             int: The consensus weight of a block.
         """
 
-        # Placeholder for (1a)
-        return 1
+        if (self.target != 0):
+            return int((2**256)/self.target)
+        else:
+            return (2**256)
 
     def mine(self):
         """ PoW mining loop; attempts to seal a block with new seal data until the seal is valid

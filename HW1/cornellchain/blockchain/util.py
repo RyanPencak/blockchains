@@ -14,11 +14,9 @@ def sha256_2_string(string_to_hash):
 
     # (hint): feed binary data directly between the two SHA256 rounds
     hash1 = hashlib.sha256(string_to_hash.encode())
-    hash1_dig = hash1.digest()
-    hash2 = hashlib.sha256(hash1_dig)
-    hash2_dig = hash2.hexdigest()
+    hash2 = hashlib.sha256(hash1.digest())
 
-    return hash2_dig
+    return hash2.hexdigest()
 
 def encode_as_str(list_to_encode, sep = "|"):
     """ Encodes a list as a string with given separator.

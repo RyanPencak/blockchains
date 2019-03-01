@@ -49,7 +49,14 @@ class PoABlock(Block):
         # make sure to check that output is valid seal with provided code
         # (if seal is invalid, repeat)
 
-        # Placeholder for (1b)
+        while (self.seal_is_valid() == False):
+            header = self.unsealed_header().encode("utf-8")
+            key = self.get_private_key()
+            ecdsa_key = SigningKey.from_string(key, curve=ecdsa.curves.NIST192p)
+            seal = ecdsa_key.sign(header)
+            seal = int.from_bytes(seal, byteorder='big')
+            self.set_seal_data(seal)
+
         return
 
 
@@ -64,4 +71,3 @@ class PoABlock(Block):
     def get_private_key(self):
         """ Returns private key of PoA authority. """
         return binascii.unhexlify(config.AUTHORITY_SK)
-
